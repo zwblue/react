@@ -18,3 +18,12 @@ export function addGUN() {
 export function removeGUN() {
     return { type: REMOVE_GUN }
 }
+// 延时添加，拖两天再给
+export function addGunAsync() {
+    // thunk插件的作用，这里可以返回函数
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(addGUN())
+        }, 2000)
+    }
+}

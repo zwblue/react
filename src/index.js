@@ -1,12 +1,17 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import App from './app';
-import { createStore } from 'redux';
-import { counter, addGUN, removeGUN } from './index.redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import { Provider } from 'react-redux'
+import { counter } from './index.redux'
 // 新建store
-const store = createStore(counter)
+// compose 合并函数
+const store = createStore(counter, compose(applyMiddleware(thunk)))
+// , window.devToolsExtension ? window.devToolsExtension() :() => {}
 function render() {
-    ReactDom.render(<App store={store} addGUN={addGUN} removeGUN={removeGUN} />, document.getElementById('root'))
+    ReactDom.render((<Provider store={store}>
+        <App />
+    </Provider>), document.getElementById('root'))
 }
 render();
-store.subscribe(render)//状态改变过后重新执行一下render函数
