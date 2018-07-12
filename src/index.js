@@ -1,17 +1,12 @@
+import React from 'react'
+import ReactDom from 'react-dom'
+import App from './app';
+import { createStore } from 'redux';
+import { counter, addGUN, removeGUN } from './index.redux'
 // 新建store
-import { createStore } from 'redux'
-// 通过reducer简历
-// 根据老的state和action 生成新的state
-function counter(state = 0, action) {
-    switch (action.type) {
-        case '加机关枪':
-            return state + 1;
-        case '减机关枪':
-            return state - 1;
-        default:
-            return 10
-    }
+const store = createStore(counter)
+function render() {
+    ReactDom.render(<App store={store} addGUN={addGUN} removeGUN={removeGUN} />, document.getElementById('root'))
 }
-const store = createStore(counter);
-const init = store.getState();
-console.log(init)
+render();
+store.subscribe(render)//状态改变过后重新执行一下render函数
