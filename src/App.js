@@ -25,7 +25,7 @@ class OneYing extends React.Component {//class要大写
     this.state = {
       solders: ['狗子', '猴子', '虎子', '和尚']
     }
-    // this.addSolder=this.addSolder.bind(this);
+    // this.addSolder=this.addSolder.bind(this); 方式1
   }
   componentWillMount() {
     console.log('组件马上就要加载了')
@@ -49,7 +49,7 @@ class OneYing extends React.Component {//class要大写
   componentWillUnmount() {
     console.log('组件卸载了')
   }
-  addSolder = () => {
+  addSolder = () => { //方式1
     console.log('hello add solder');
     this.setState({
       solders: [...this.state.solders, '皮蛋' + Math.random() * 100]
@@ -60,7 +60,7 @@ class OneYing extends React.Component {//class要大写
     return (
       <div>
         <h2>一营营长，{this.props.boss}</h2>
-        {/* <button onClick={()=>this.addSolder()}>新兵入伍</button> */}
+        {/* //方式3 <button onClick={()=>this.addSolder()}>新兵入伍</button> */}
         <Button type='primary' onClick={this.addSolder}>新兵入伍</Button>
         <List renderHeader={() => '士兵列表'}>
           {this.state.solders.map((v, index) => {
