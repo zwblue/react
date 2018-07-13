@@ -9,12 +9,13 @@ import { addGUN, removeGUN, addGunAsync } from "./index.redux";
 //
 //
 //   )(App);
-@connect(
   //1、你要state什么属性放到props里 :state
-  state => ({ num: state }),
   //2、你要什么方法放在props里，自动dispatch
+@connect(
+  state => ({ num: state }),
   { addGUN, removeGUN, addGunAsync }
 )
+
 class App extends React.Component {
   render() {
     return (
