@@ -1,19 +1,7 @@
 const express = require('express');
-const mongoose = require('mongoose')
-// 链接mongo,并且使用react集合
-const DB_URL = 'mongodb://localhost:27017/react'
-mongoose.connect(DB_URL);
-
-
-
+const userRouter = require('./user')
 const app = express();
-app.get('/', function (req, res) {
-
-    res.send('<h1>Hello world</h1>')
-})
-
-app.get('/data', function (req, res) {
-    User.find({}, function (err, doc) {//User这个表 where{user:'zuowang'}
-        res.json(doc)
-    })
+app.use('/user', userRouter)
+app.listen(8888, function () {
+    console.log('Node app start at port 9093')
 })

@@ -16,15 +16,17 @@ import AuthRoute from './component/authroute/authroute';
 
 const store = createStore(reducer, compose(applyMiddleware(thunk)));
 // , window.devToolsExtension ? window.devToolsExtension() :() => {}
-
+function Boss(){
+  return <h2>Boss</h2>
+}
 ReactDom.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
         <AuthRoute></AuthRoute>
+        <Route path='/boss' component={Boss}></Route>
         <Route path='/login' component={Login}></Route>
         <Route path='/register' component={Register}></Route>
-        {/* <Redirect to='/login'></Redirect> */}
       </div>
     </BrowserRouter>
   </Provider>,
