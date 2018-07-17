@@ -1,9 +1,12 @@
 import axios from "../../node_modules/axios";
 import { Toast } from 'antd-mobile'
+import { getRedirectPath } from '../util'
+
 const RESISTER_SUCCESS = 'RESISTER_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
 
 const initState = {
+    redirectTo: '',
     msg: '',
     isAuth: '',
     user: '',
@@ -13,10 +16,10 @@ const initState = {
 export function user(state = initState, action) {
     switch (action.type) {
         case 'RESISTER_SUCCESS':
-            return { ...state, msg: '', isAuth: true, ...action.data }
+            return { ...state, msg: '', redirectTo: getRedirectPath(action.data), isAuth: true, ...action.data }
         case 'ERROR_MSG':
             if (action.msg) {
-                Toast.fail(action.msg, 2)
+                Toast.fail(action.msg)
             }
             return { ...state, isAuth: false, msg: action.msg }
         default:
@@ -39,6 +42,7 @@ export const register = ({ user, pwd, repeatpwd, type }) => {
     return dispatch => {
         axios.post('user/register', { user, pwd, type }).then(res => {
             if (res.status === 200 && res.data.code === 0) {
+                Toast.success(res.data.msg)
                 dispatch(registerSuccess({ user, pwd, type }))
             } else {
                 dispatch(errorMsg(res.data.msg))
