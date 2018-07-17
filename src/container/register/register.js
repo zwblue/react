@@ -1,6 +1,9 @@
 import React from 'react'
 import Logo from '../../component/logo/logo'
-import { List, InputItem, WingBlank, Radio, WhiteSpace, Button } from 'antd-mobile'
+import { List, InputItem, Radio, WhiteSpace, Button } from 'antd-mobile'
+import { connect } from 'react-redux'
+import { register } from "../../redux/user.redux";
+@connect(state => state.user, { register })
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -12,15 +15,13 @@ class Register extends React.Component {
         }
         this.handleRegister = this.handleRegister.bind(this);
     }
-    register() {
-        this.props.history.push('/register')
-    }
     handleChange(key, val) {
         this.setState({
             [key]: val
         })
     }
     handleRegister() {
+        this.props.register(this.state);
         console.log('注册信息', this.state)
     }
     render() {
